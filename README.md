@@ -19,12 +19,32 @@ inspecting browser developer tools or taking screenshots.
 
 ## Local preview
 
-From this folder, run:
+Use Node.js 24.15+ (24.x), or another supported version listed in `package.json`.
 
-    python3 -m http.server 5173
+```sh
+npm ci
+npm run dev
+```
 
-Then open http://localhost:5173 in a browser. No install or build step is needed.
+Open http://127.0.0.1:5173. The site uses React with Vite; no backend is required.
 Google Fonts enhance the typography; system fonts are used if unavailable.
+
+## Build and test
+
+```sh
+npm test
+npm run build
+npm run preview
+```
+
+`npm run build` produces a static site in `dist/`. Deploy that folder to a static
+host. `npm run preview` serves the production build on the same local port, so
+stop the development server before starting it.
+
+The tests cover draw uniqueness, name validation, countdowns, translations,
+session restoration, reveal privacy, confetti lifecycle, and reduced motion.
+React components and hooks live in `src/`; the styles and drawing algorithm are
+preserved from the original implementation.
 
 ## Layout and motion
 
