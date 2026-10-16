@@ -4,3 +4,4 @@ work/
 outputs/
 .env
 .env.local
+dist/

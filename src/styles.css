@@ -13,10 +13,11 @@ main { align-items: start; }
 .draw-panel { height: 720px; min-height: 0; overflow-anchor: none; }
 #app { width: 100%; height: 100%; min-width: 0; }
 .stage {
+  --stage-gap: 18px;
   height: 100%;
   display: grid;
   grid-template-rows: 32px minmax(0, 1fr) 155px;
-  gap: 18px;
+  gap: var(--stage-gap);
 }
 .panel-top { margin: 0; min-width: 0; }
 .section-tag { min-width: 0; }
@@ -24,17 +25,26 @@ main { align-items: start; }
 .setup-content {
   min-height: 0;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: 88px 42px 46px 32px 56px minmax(0, 1fr);
 }
 .setup-content .panel-title, .setup-content .panel-description { margin: 0; }
 .entry-form { height: 46px; }
 .input-help { margin: 8px 0 0; }
-.error { margin: 0; padding-top: 6px; line-height: 1.45; overflow: auto; }
+.error { grid-column: 1; grid-row: 5; position: relative; z-index: 1; margin: 0; padding-top: 6px; line-height: 1.45; overflow: auto; }
 .error:empty { display: block; visibility: hidden; }
 #roster { min-height: 0; overflow: hidden; }
+/* Empty copy uses all the available space above the action, including the
+   reserved error row and stage gap. Neither the card nor button needs to move. */
+.setup-content.is-empty #roster {
+  grid-column: 1;
+  grid-row: 5 / 7;
+  margin-bottom: calc(-1 * var(--stage-gap));
+}
 .participants { height: 100%; max-height: none; margin: 0; overflow: auto; scrollbar-gutter: stable; }
 .person { min-height: 50px; }
 .empty { height: 100%; min-height: 0; margin: 0; }
+.empty p { margin-bottom: 0; }
 .stage-body {
   min-height: 0;
   padding: 0;
