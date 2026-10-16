@@ -264,3 +264,40 @@ test("participant names are escaped by React and never interpreted as markup", a
   assert.equal(get(".person-name").textContent, "<img src=x onerror=alert(1)>");
   assert.equal(get(".participants img"), null);
 });
+
+
+test("localized markup and accessibility labels stay intact across language switches", async () => {
+  assert.equal(get("#headline em").textContent, "joy.");
+  assert.equal(get("#headline").querySelectorAll("br").length, 1);
+  assert.equal(get(".intro-copy").querySelectorAll("br").length, 1);
+  await add("<b>Anna</b>, Kuba");
+  assert.equal(get('[data-remove="0"]').getAttribute("aria-label"), "Remove <b>Anna</b>");
+  assert.equal(get(".person-name b"), null);
+  await click('[data-lang="pl"]');
+  assert.equal(get("#headline em").textContent, "radości.");
+  assert.equal(get(".round-badge").textContent, "2 osoby");
+  assert.equal(get('[data-remove="0"]').getAttribute("aria-label"), "Usuń: <b>Anna</b>");
+  assert.equal(get('[data-lang="pl"]').getAttribute("aria-pressed"), "true");
+  await click("#start");
+  await tick(5000);
+  assert.equal(get("#reveal").getAttribute("aria-label"), "To ja. Pokaż moje losowanie (<b>Anna</b>)");
+  assert.equal(get(".stage-description").querySelectorAll("br").length, 1);
+  await click("#reveal");
+  const beforeSwitch = saved();
+  await click('[data-lang="en"]');
+  assert.deepEqual(saved(), beforeSwitch, "Switching language does not consume a pairing");
+  assert.equal(get(".recipient-name").textContent, "Kuba");
+  assert.equal(get(".stage-description").querySelectorAll("br").length, 1);
+  await click("#next");
+  assert.equal(get(".secret"), null);
+});
+
+test("remount restores the saved language independently of the draw", async () => {
+  await click('[data-lang="pl"]');
+  await act(async () => root.unmount());
+  root = createRoot(get("#root"));
+  await act(async () => root.render(createElement(App)));
+  assert.equal(document.documentElement.lang, "pl");
+  assert.equal(get(".panel-title").textContent, "Kto dołącza do zabawy?");
+  assert.equal(get("#start").disabled, true);
+});

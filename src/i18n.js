@@ -1,134 +1,50 @@
-export const messages = {
-  en: {
-    eyebrow: "YOUR SECRET SANTA, SORTED",
-    headline: "A little mystery.<br>A lot of <em>joy.</em>",
-    intro:
-      "Gather your favorite people. Pass the phone.<br>Let a little Christmas magic do the rest.",
-    illustrationNote: "a little surprise for everyone ♡",
-    promise: "Good gifts start with a little secret.",
-    step1Title: "Make your merry list",
-    step1: "Add everyone joining the fun.",
-    step2Title: "Pass, peek, keep it secret",
-    step2: "One phone. One private reveal at a time.",
-    step3Title: "Make someone’s day",
-    step3: "Nobody draws their own name. Promise.",
-    footer: "Less organizing. More merry.",
-    footerRight: "Made for little Christmas moments",
-    list: "THE MERRY LIST",
-    people: (n) => `${n} ${n === 1 ? "person" : "people"}`,
-    setupTitle: "Who’s joining the fun?",
-    setupDescription: "Add your people. We’ll take care of the surprises.",
-    placeholder: "e.g. Alex, Sam, Taylor",
-    inputLabel: "Participant names",
-    add: "Add +",
-    inputHelp: "Press Enter to add. Commas work for a whole group.",
-    emptyTitle: "Your merry little crew goes here",
-    emptyText: "Start with two people. The more, the merrier.",
-    start: "Let’s draw names",
-    min: "Add at least 2 people to begin",
-    privacy: "No self-draws. No peeking at past reveals.",
-    duplicate:
-      "That name is already on the list. Add a surname or nickname to tell people apart.",
-    tooLong: "Keep each name to 40 characters or fewer.",
-    max: "The list is full! You can add up to 50 people.",
-    emptyError: "Add a name first.",
-    remove: (name) => `Remove ${name}`,
-    added: (n) => `${n} ${n === 1 ? "person added" : "people added"}.`,
-    handoff: "PASS THE PHONE",
-    turn: (n, total) => `${n} of ${total}`,
-    pass: "Pass the phone to",
-    handoffDescription:
-      "Only this person should tap the button below.<br>Everyone else, look away!",
-    reveal: (name) => `I’m ${name}. Reveal my person`,
-    revealButton: "That’s me. Reveal my person",
-    wait: "A little handoff pause…",
-    handoffPrivacy: "Previous reveals are cleared. Keep the surprise alive.",
-    secret: "FOR YOUR EYES ONLY",
-    yourGift: "You’re the Secret Santa for",
-    secretTag: "YOUR LITTLE SECRET",
-    secretDescription:
-      "Remember this name and make their day.<br>Once you move on, this reveal is gone for good.",
-    next: "Got it! Next person",
-    finish: "Got it! Finish the draw",
-    secretPrivacy: "Tap below before passing the phone.",
-    doneLabel: "ALL WRAPPED UP",
-    doneTitle: "Let the gifting begin.",
-    doneDescription:
-      "Everyone has their person. Now for the fun part:<br>finding a gift that feels just right.",
-    donePrivacy: "All pairings have been cleared. Your secrets stay yours.",
-    again: "Start a new merry list",
-    resume:
-      "Welcome back. Past reveals stay hidden; continue with the next person.",
-    storage:
-      "This browser cannot save progress. Keep this page open until everyone has drawn.",
-  },
-  pl: {
-    eyebrow: "MIKOŁAJKOWE LOSOWANIE BEZ STRESU",
-    headline: "Trochę tajemnicy.<br>Mnóstwo <em>radości.</em>",
-    intro:
-      "Zbierz ulubione osoby. Podaj telefon dalej.<br>Resztą zajmie się świąteczna magia.",
-    illustrationNote: "mała niespodzianka dla każdego ♡",
-    promise: "Dobry prezent zaczyna się od małej tajemnicy.",
-    step1Title: "Zbierz świąteczną ekipę",
-    step1: "Dodaj wszystkich uczestników zabawy.",
-    step2Title: "Podaj, sprawdź, zachowaj sekret",
-    step2: "Jeden telefon. Każdy odkrywa swoje losowanie.",
-    step3Title: "Spraw komuś radość",
-    step3: "Nikt nie wylosuje siebie. Obiecujemy.",
-    footer: "Mniej organizowania. Więcej radości.",
-    footerRight: "Na małe świąteczne chwile",
-    list: "ŚWIĄTECZNA LISTA",
-    people: (n) =>
-      `${n} ${n === 1 ? "osoba" : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? "osoby" : "osób"}`,
-    setupTitle: "Kto dołącza do zabawy?",
-    setupDescription: "Dodaj swoją ekipę. My zadbamy o niespodzianki.",
-    placeholder: "np. Ania, Kuba, Ola",
-    inputLabel: "Imiona uczestników",
-    add: "Dodaj +",
-    inputHelp: "Enter dodaje imię. Całą grupę oddziel przecinkami.",
-    emptyTitle: "Tu pojawi się Twoja świąteczna ekipa",
-    emptyText: "Zacznij od dwóch osób. Im więcej, tym weselej.",
-    start: "Losujemy imiona",
-    min: "Dodaj co najmniej 2 osoby, aby zacząć",
-    privacy: "Nikt nie losuje siebie. Poprzednie wyniki są ukryte.",
-    duplicate:
-      "To imię już jest na liście. Dodaj nazwisko lub pseudonim, aby odróżnić osoby.",
-    tooLong: "Każde imię może mieć maksymalnie 40 znaków.",
-    max: "Lista jest pełna! Możesz dodać do 50 osób.",
-    emptyError: "Najpierw wpisz imię.",
-    remove: (name) => `Usuń: ${name}`,
-    added: (n) => `Dodano: ${n}.`,
-    handoff: "PODAJ TELEFON",
-    turn: (n, total) => `${n} z ${total}`,
-    pass: "Podaj telefon tej osobie:",
-    handoffDescription:
-      "Tylko ta osoba powinna nacisnąć przycisk poniżej.<br>Reszta ekipy odwraca wzrok!",
-    reveal: (name) => `To ja, ${name}. Pokaż moje losowanie`,
-    revealButton: "To ja. Pokaż moje losowanie",
-    wait: "Chwila na przekazanie telefonu…",
-    handoffPrivacy: "Poprzednie wyniki są usunięte. Niech to będzie sekret.",
-    secret: "TYLKO DLA TWOICH OCZU",
-    yourGift: "Twój prezent trafi do:",
-    secretTag: "TWÓJ MAŁY SEKRET",
-    secretDescription:
-      "Zapamiętaj to imię i spraw tej osobie radość.<br>Po przejściu dalej ten wynik zniknie na dobre.",
-    next: "Mam! Następna osoba",
-    finish: "Mam! Zakończ losowanie",
-    secretPrivacy: "Naciśnij przycisk, zanim podasz telefon dalej.",
-    doneLabel: "WSZYSTKO GOTOWE",
-    doneTitle: "Czas na prezenty.",
-    doneDescription:
-      "Każdy zna już swoją osobę. Teraz najlepsza część:<br>znaleźć prezent, który wywoła uśmiech.",
-    donePrivacy: "Wszystkie pary zostały usunięte. Sekrety zostają z Wami.",
-    again: "Utwórz nową świąteczną listę",
-    resume:
-      "Miło Cię znów widzieć. Poprzednie wyniki są ukryte. Czas na kolejną osobę.",
-    storage:
-      "Ta przeglądarka nie zapisuje postępu. Nie zamykaj strony, dopóki wszyscy nie wylosują.",
-  },
-};
+import { createInstance } from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import { initReactI18next } from "react-i18next";
+import en from "./locales/en/translation.json" with { type: "json" };
+import pl from "./locales/pl/translation.json" with { type: "json" };
 
-export function translate(language, key, ...args) {
-  const value = messages[language][key];
-  return typeof value === "function" ? value(...args) : value;
+export const resources = {
+  en: { translation: en },
+  pl: { translation: pl },
+};
+export const supportedLanguages = Object.keys(resources);
+
+// Create an isolated instance for each app root (also usable in tests).
+// Bundled resources initialize synchronously, without network requests or a
+// flash of translation keys. i18next owns language state and persistence.
+export function createAppI18n() {
+  const instance = createInstance();
+  const detector = new LanguageDetector();
+  // Storage can become unavailable after the detector's initial support check
+  // (e.g. a browser privacy setting). Keep language switching usable then too.
+  for (const method of ["lookup", "cacheUserLanguage"]) {
+    const original = detector.detectors.localStorage[method];
+    detector.detectors.localStorage[method] = (...args) => {
+      try {
+        return original(...args);
+      } catch {
+        return undefined;
+      }
+    };
+  }
+  instance.use(detector).use(initReactI18next).init({
+    resources,
+    supportedLngs: supportedLanguages,
+    fallbackLng: "en",
+    load: "languageOnly",
+    cleanCode: true,
+    initAsync: false,
+    interpolation: { escapeValue: false }, // React escapes text nodes.
+    detection: {
+      order: ["localStorage", "navigator"],
+      lookupLocalStorage: "merry-language",
+      caches: ["localStorage"],
+    },
+    react: {
+      useSuspense: false,
+      transKeepBasicHtmlNodesFor: ["br", "em"],
+    },
+  });
+  return instance;
 }

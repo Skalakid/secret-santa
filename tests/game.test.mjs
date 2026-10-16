@@ -10,7 +10,6 @@ import {
   validateNames,
 } from "../src/game.mjs";
 import { readInitialState, saveSession, storageKey } from "../src/session.mjs";
-import { translate } from "../src/i18n.js";
 
 function storage() {
   const values = new Map();
@@ -117,17 +116,6 @@ test("reset clears the persisted session", () => {
   saveSession(null, env);
   assert.equal(env.sessionStorage.getItem(storageKey), null);
   assert.deepEqual(readInitialState(env).game, initialGame());
-});
-
-test("browser language and explicit language preference keep the original behavior", () => {
-  const env = environment("pl-PL");
-  assert.equal(readInitialState(env).language, "pl");
-  env.localStorage.setItem("merry-language", "en");
-  assert.equal(readInitialState(env).language, "en");
-  env.localStorage.setItem("merry-language", "unknown");
-  assert.equal(readInitialState(env).language, "pl");
-  assert.equal(translate("pl", "people", 22), "22 osoby");
-  assert.equal(translate("pl", "people", 12), "12 osób");
 });
 
 test("malformed storage and unavailable storage do not crash the draw", () => {

@@ -1,5 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
+import { I18nextProvider, useTranslation } from "react-i18next";
+import { createAppI18n } from "./i18n.js";
 import { createConfetti } from "./confetti.js";
 import {
   initialGame,
@@ -10,12 +12,23 @@ import {
   validateNames,
 } from "./game.mjs";
 import { stopLayoutMotion } from "./layout.mjs";
-import { readInitialState, saveLanguage, saveSession } from "./session.mjs";
+import { readInitialState, saveSession } from "./session.mjs";
 import { DrawPanel } from "./components/DrawPanel.jsx";
 import { LayoutMotion } from "./components/LayoutMotion.jsx";
 import { Page } from "./components/Page.jsx";
 
 export default function App() {
+  const [i18n] = useState(createAppI18n);
+  return (
+    <I18nextProvider i18n={i18n}>
+      <SecretSanta />
+    </I18nextProvider>
+  );
+}
+
+function SecretSanta() {
+  const { t, i18n } = useTranslation();
+  const language = i18n.resolvedLanguage;
   const [model, setModel] = useState(() => ({
     ...readInitialState(),
     names: [],
@@ -53,21 +66,17 @@ export default function App() {
   function listScroll() {
     return document.querySelector(".participants")?.scrollTop || 0;
   }
-  function onLanguage(language) {
-    saveLanguage(language);
+  function onLanguage(nextLanguage) {
     focusRequest.current = { scroll: listScroll() };
-    commit({ language, error: "", announcementCount: 0 }, { content: true });
+    commit({ error: "", announcementCount: 0 }, { content: true });
+    i18n.changeLanguage(nextLanguage);
   }
   function onDraft(draft) {
     commit({ draft }, { layout: false });
   }
   function onAdd() {
     const previous = current.current;
-    const result = validateNames(
-      previous.draft,
-      previous.names,
-      previous.language,
-    );
+    const result = validateNames(previous.draft, previous.names, language);
     if (result.issue) {
       commit(
         { error: result.issue, errorRevision: previous.errorRevision + 1 },
@@ -134,12 +143,9 @@ export default function App() {
   }
 
   useLayoutEffect(() => {
-    document.documentElement.lang = model.language;
-    document.title =
-      model.language === "pl"
-        ? "Merry Little Draw · Mikołajki"
-        : "Merry Little Draw · Secret Santa";
-  }, [model.language]);
+    document.documentElement.lang = language;
+    document.title = t("pageTitle");
+  }, [language, t]);
 
   useLayoutEffect(() => {
     const controller = createConfetti(canvasRef.current);
@@ -186,11 +192,7 @@ export default function App() {
 
   return (
     <LayoutMotion revision={model.layoutRevision}>
-      <Page
-        language={model.language}
-        onLanguage={onLanguage}
-        canvasRef={canvasRef}
-      >
+      <Page onLanguage={onLanguage} canvasRef={canvasRef}>
         <DrawPanel
           model={model}
           focusRequest={focusRequest}

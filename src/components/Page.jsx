@@ -1,8 +1,9 @@
-import { translate } from "../i18n.js";
-import { RichText } from "./RichText.jsx";
+import { Trans, useTranslation } from "react-i18next";
+import { supportedLanguages } from "../i18n.js";
 
-export function Page({ language, onLanguage, canvasRef, children }) {
-  const t = (key, ...args) => translate(language, key, ...args);
+export function Page({ onLanguage, canvasRef, children }) {
+  const { t, i18n } = useTranslation();
+  const language = i18n.resolvedLanguage;
   return (
     <>
       <div className="site-shell">
@@ -15,25 +16,19 @@ export function Page({ language, onLanguage, canvasRef, children }) {
               merry little draw<span className="brand-dot">.</span>
             </span>
           </div>
-          <div className="languages" role="group" aria-label="Language / Język">
-            <button
-              type="button"
-              data-lang="en"
-              lang="en"
-              aria-pressed={language === "en"}
-              onClick={() => onLanguage("en")}
-            >
-              EN
-            </button>
-            <button
-              type="button"
-              data-lang="pl"
-              lang="pl"
-              aria-pressed={language === "pl"}
-              onClick={() => onLanguage("pl")}
-            >
-              PL
-            </button>
+          <div className="languages" role="group" aria-label={t("languageLabel")}>
+            {supportedLanguages.map((code) => (
+              <button
+                key={code}
+                type="button"
+                data-lang={code}
+                lang={code}
+                aria-pressed={language === code}
+                onClick={() => onLanguage(code)}
+              >
+                {code.toUpperCase()}
+              </button>
+            ))}
           </div>
         </header>
         <main>
@@ -45,14 +40,14 @@ export function Page({ language, onLanguage, canvasRef, children }) {
             <div className="eyebrow">
               <span className="tiny-star">✦</span>
               <span data-i18n="eyebrow">
-                <RichText>{t("eyebrow")}</RichText>
+                {t("eyebrow")}
               </span>
             </div>
             <h1 id="headline" data-i18n="headline">
-              <RichText>{t("headline")}</RichText>
+              <Trans t={t} i18nKey="headline" />
             </h1>
             <p className="intro-copy" data-i18n="intro">
-              <RichText>{t("intro")}</RichText>
+              <Trans t={t} i18nKey="intro" />
             </p>
             <div className="illustration" aria-hidden="true">
               <svg
@@ -146,13 +141,13 @@ export function Page({ language, onLanguage, canvasRef, children }) {
                 />
               </svg>
               <span className="illustration-note" data-i18n="illustrationNote">
-                <RichText>{t("illustrationNote")}</RichText>
+                {t("illustrationNote")}
               </span>
             </div>
             <div className="promise">
               <span aria-hidden="true">↗</span>
               <span data-i18n="promise">
-                <RichText>{t("promise")}</RichText>
+                {t("promise")}
               </span>
             </div>
           </section>
@@ -177,10 +172,10 @@ export function Page({ language, onLanguage, canvasRef, children }) {
             <span className="step-num">01</span>
             <p>
               <strong data-i18n="step1Title">
-                <RichText>{t("step1Title")}</RichText>
+                {t("step1Title")}
               </strong>
               <span data-i18n="step1">
-                <RichText>{t("step1")}</RichText>
+                {t("step1")}
               </span>
             </p>
           </div>
@@ -188,10 +183,10 @@ export function Page({ language, onLanguage, canvasRef, children }) {
             <span className="step-num">02</span>
             <p>
               <strong data-i18n="step2Title">
-                <RichText>{t("step2Title")}</RichText>
+                {t("step2Title")}
               </strong>
               <span data-i18n="step2">
-                <RichText>{t("step2")}</RichText>
+                {t("step2")}
               </span>
             </p>
           </div>
@@ -199,17 +194,17 @@ export function Page({ language, onLanguage, canvasRef, children }) {
             <span className="step-num">03</span>
             <p>
               <strong data-i18n="step3Title">
-                <RichText>{t("step3Title")}</RichText>
+                {t("step3Title")}
               </strong>
               <span data-i18n="step3">
-                <RichText>{t("step3")}</RichText>
+                {t("step3")}
               </span>
             </p>
           </div>
         </section>
         <footer data-layout="footer">
           <span data-i18n="footer">
-            <RichText>{t("footer")}</RichText>
+            {t("footer")}
           </span>
           <span className="footer-note">
             <svg
@@ -226,7 +221,7 @@ export function Page({ language, onLanguage, canvasRef, children }) {
               />
             </svg>
             <span data-i18n="footerRight">
-              <RichText>{t("footerRight")}</RichText>
+              {t("footerRight")}
             </span>
           </span>
         </footer>

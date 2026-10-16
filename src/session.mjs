@@ -1,4 +1,3 @@
-import { messages } from "./i18n.js";
 import { initialGame } from "./game.mjs";
 
 export const storageKey = "merry-little-draw-v1";
@@ -23,14 +22,9 @@ export function validSession(saved) {
 }
 
 export function readInitialState(environment = globalThis) {
-  let language = environment.navigator?.language?.toLowerCase().startsWith("pl")
-    ? "pl"
-    : "en";
   let game = initialGame();
   let storageAvailable = true;
   try {
-    const preference = environment.localStorage.getItem("merry-language");
-    if (messages[preference]) language = preference;
     const saved = JSON.parse(
       environment.sessionStorage.getItem(storageKey) || "null",
     );
@@ -40,7 +34,7 @@ export function readInitialState(environment = globalThis) {
   } catch {
     storageAvailable = false;
   }
-  return { language, game, storageAvailable };
+  return { game, storageAvailable };
 }
 
 export function saveSession(session, environment = globalThis) {
@@ -51,13 +45,5 @@ export function saveSession(session, environment = globalThis) {
     return true;
   } catch {
     return false;
-  }
-}
-
-export function saveLanguage(language) {
-  try {
-    localStorage.setItem("merry-language", language);
-  } catch {
-    /* Preference is optional. */
   }
 }

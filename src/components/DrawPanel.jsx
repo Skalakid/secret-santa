@@ -1,8 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { translate } from "../i18n.js";
+import { Trans, useTranslation } from "react-i18next";
 import { fadeIn } from "../layout.mjs";
 import { GiftIcon, LockIcon, PhoneIcon } from "./Icons.jsx";
-import { RichText } from "./RichText.jsx";
 
 function ActionButton({
   id,
@@ -52,7 +51,7 @@ function Actions({ children, message, progress = 0 }) {
   );
 }
 
-function Setup({ model, t, focusRequest, onDraft, onAdd, onRemove }) {
+function Setup({ model, t, language, focusRequest, onDraft, onAdd, onRemove }) {
   const inputRef = useRef(null);
   const listRef = useRef(null);
   const errorRef = useRef(null);
@@ -73,7 +72,7 @@ function Setup({ model, t, focusRequest, onDraft, onAdd, onRemove }) {
       )?.focus({ preventScroll: true });
     }
     focusRequest.current = null;
-  }, [model.names, model.language, focusRequest]);
+  }, [model.names, language, focusRequest]);
   useLayoutEffect(() => {
     if (model.error) fadeIn(errorRef.current);
   }, [model.error, model.errorRevision]);
@@ -119,14 +118,14 @@ function Setup({ model, t, focusRequest, onDraft, onAdd, onRemove }) {
             {model.names.map((name, index) => (
               <li className="person" data-person={name} key={name}>
                 <span className="avatar" aria-hidden="true">
-                  {Array.from(name)[0].toLocaleUpperCase(model.language)}
+                  {Array.from(name)[0].toLocaleUpperCase(language)}
                 </span>
                 <span className="person-name">{name}</span>
                 <button
                   type="button"
                   className="remove"
                   data-remove={index}
-                  aria-label={t("remove", name)}
+                  aria-label={t("remove", { name })}
                   onClick={() => onRemove(index)}
                 >
                   ×
@@ -174,7 +173,7 @@ function StageBody({ game, t }) {
           {t("doneTitle")}
         </h2>
         <p className="stage-description">
-          <RichText>{t("doneDescription")}</RichText>
+          <Trans t={t} i18nKey="doneDescription" />
         </p>
       </div>
     );
@@ -193,9 +192,10 @@ function StageBody({ game, t }) {
         name={secret ? game.revealed.recipient : game.session.pending[0].giver}
       />
       <p className="stage-description">
-        <RichText>
-          {t(secret ? "secretDescription" : "handoffDescription")}
-        </RichText>
+        <Trans
+          t={t}
+          i18nKey={secret ? "secretDescription" : "handoffDescription"}
+        />
       </p>
     </div>
   );
@@ -234,8 +234,9 @@ function useCountdown(deadline) {
 }
 
 export function DrawPanel({ model, focusRequest, handlers }) {
-  const { language, game } = model;
-  const t = (key, ...args) => translate(language, key, ...args);
+  const { game } = model;
+  const { t, i18n } = useTranslation();
+  const language = i18n.resolvedLanguage;
   const { stage, session } = game;
   const panelRef = useRef(null);
   const revealRef = useRef(null);
@@ -269,14 +270,13 @@ export function DrawPanel({ model, focusRequest, handlers }) {
   }[stage];
   const badge =
     stage === "setup"
-      ? t("people", model.names.length)
+      ? t("people", { count: model.names.length })
       : stage === "done"
-        ? t("people", session.total)
-        : t(
-            "turn",
-            session.completed + (stage === "handoff" ? 1 : 0),
-            session.total,
-          );
+        ? t("people", { count: session.total })
+        : t("turn", {
+            current: session.completed + (stage === "handoff" ? 1 : 0),
+            total: session.total,
+          });
   let controls;
   if (stage === "setup")
     controls = (
@@ -308,7 +308,7 @@ export function DrawPanel({ model, focusRequest, handlers }) {
           countdown={remaining}
           disabled={remaining > 0}
           ariaLabel={
-            remaining > 0 ? t("wait") : `${t("revealButton")} (${person})`
+            remaining > 0 ? t("wait") : t("revealAria", { name: person })
           }
           onClick={handlers.onReveal}
           buttonRef={revealRef}
@@ -356,6 +356,7 @@ export function DrawPanel({ model, focusRequest, handlers }) {
             key={model.contentRevision}
             model={model}
             t={t}
+            language={language}
             focusRequest={focusRequest}
             {...handlers}
           />
@@ -366,12 +367,16 @@ export function DrawPanel({ model, focusRequest, handlers }) {
       </div>
       {stage === "setup" && (
         <span id="add-status" className="visually-hidden" role="status">
-          {model.announcementCount ? t("added", model.announcementCount) : ""}
+          {model.announcementCount
+            ? t("added", { count: model.announcementCount })
+            : ""}
         </span>
       )}
       {stage === "handoff" && (
         <p className="visually-hidden" id="timer-status" role="status">
-          {remaining === 0 ? t("reveal", session.pending[0].giver) : ""}
+          {remaining === 0
+            ? t("reveal", { name: session.pending[0].giver })
+            : ""}
         </p>
       )}
     </>
