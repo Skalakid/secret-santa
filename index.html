@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f7f6ee"><meta name="description" content="A little mystery. A lot of joy. A private, playful Secret Santa draw in English and Polish.">
+<title>Merry Little Draw · Secret Santa</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='8' y='24' width='48' height='34' rx='5' fill='%231f5146'/%3E%3Cpath d='M32 24V58M8 34H56' stroke='%23f4aaa0' stroke-width='7'/%3E%3Cpath d='M32 24C5 24 15 0 32 24C49 0 59 24 32 24' fill='none' stroke='%23f4aaa0' stroke-width='5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css"><script type="module" src="app.js"></script>
+</head>
+<body>
+<div class="site-shell">
+<header><div class="brand"><span class="brand-icon" aria-hidden="true">✳</span><span>merry little draw<span class="brand-dot">.</span></span></div><div class="languages" role="group" aria-label="Language / Język"><button type="button" data-lang="en" lang="en">EN</button><button type="button" data-lang="pl" lang="pl">PL</button></div></header>
+<main>
+<section class="intro" aria-labelledby="headline"><div class="eyebrow"><span class="tiny-star">✦</span><span data-i18n="eyebrow">YOUR SECRET SANTA, SORTED</span></div><h1 id="headline" data-i18n="headline">A little mystery.<br>A lot of <em>joy.</em></h1><p class="intro-copy" data-i18n="intro">Gather your favorite people. Pass the phone.<br>Let a little Christmas magic do the rest.</p>
+<div class="illustration" aria-hidden="true"><svg viewBox="0 0 440 300" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="223" cy="269" rx="136" ry="15" fill="#e9eadf"/><path d="M66 154l7-17 7 17 17 7-17 7-7 17-7-17-17-7 17-7Z" fill="#f3ac96"/><path d="M344 58l5-13 5 13 13 5-13 5-5 13-5-13-13-5 13-5Z" fill="#1f5146"/><path d="M365 212l5-11 5 11 11 5-11 5-5 11-5-11-11-5 11-5Z" fill="#c9a24e"/><circle cx="112" cy="66" r="4" fill="#c8a154"/><circle cx="342" cy="144" r="4" fill="#eca08c"/><path d="M96 225l-8-8m-3 20-12 3m29-28 2-12M298 31l6-11m7 21 12-2" stroke="#cbab6c" stroke-width="3" stroke-linecap="round"/>
+<g transform="rotate(-9 201 181)"><rect x="116" y="137" width="175" height="125" rx="7" fill="#26584b"/><path d="M120 143h167v24H120z" fill="#164537"/><path d="M191 145h31v117h-31z" fill="#f1b6a9"/><rect x="106" y="119" width="194" height="39" rx="6" fill="#3b6e5c"/><path d="M191 119h31v39h-31z" fill="#fac9bb"/><path d="M207 119c-58 0-80-36-57-43 24-8 53 28 57 43Z" stroke="#edaa99" stroke-width="11" stroke-linejoin="round"/><path d="M207 119c47-9 66-55 40-53-22 2-33 30-40 53Z" stroke="#fac9bb" stroke-width="11" stroke-linejoin="round"/><path d="m218 123 19 56 9-13 12 6-29-52" fill="#edaa99"/></g>
+<g transform="rotate(12 294 214)"><rect x="255" y="193" width="88" height="70" rx="5" fill="#f3ac96"/><path d="M289 198h17v65h-17z" fill="#bf624f"/><rect x="248" y="182" width="102" height="23" rx="4" fill="#f8c5af"/><path d="M289 182h17v23h-17z" fill="#cf7964"/><path d="M298 184c-34-3-44-25-28-28 14-3 28 28 28 28Zm0 0c29-8 34-33 20-30-13 2-20 30-20 30Z" stroke="#c7715b" stroke-width="7"/></g><path d="m168 217 4-8 5 8 9 1-7 6 2 9-9-4-8 4 1-9-6-6 9-1Z" fill="#a5c0a4"/></svg><span class="illustration-note" data-i18n="illustrationNote">a little surprise for everyone ♡</span></div>
+<div class="promise"><span aria-hidden="true">↗</span><span data-i18n="promise">Good gifts start with a little secret.</span></div></section>
+<section class="draw-panel" aria-label="Secret Santa"><div id="app"></div><noscript>Please enable JavaScript to draw names. / Włącz JavaScript, aby losować imiona.</noscript></section>
+</main>
+<section class="how-it-works" aria-label="How it works"><div><span class="step-num">01</span><p><strong data-i18n="step1Title">Make your merry list</strong><span data-i18n="step1">Add everyone joining the fun.</span></p></div><div><span class="step-num">02</span><p><strong data-i18n="step2Title">Pass, peek, keep it secret</strong><span data-i18n="step2">One phone. One private reveal at a time.</span></p></div><div><span class="step-num">03</span><p><strong data-i18n="step3Title">Make someone’s day</strong><span data-i18n="step3">Nobody draws their own name. Promise.</span></p></div></section>
+<footer><span data-i18n="footer">Less organizing. More merry.</span><span class="footer-note"><svg class="footer-star" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 2 3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span data-i18n="footerRight">Made for little Christmas moments</span></span></footer>
+</div><canvas id="confetti" aria-hidden="true"></canvas>
+</body></html>
