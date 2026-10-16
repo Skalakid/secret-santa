@@ -79,7 +79,10 @@ function Setup({ model, t, focusRequest, onDraft, onAdd, onRemove }) {
   }, [model.error, model.errorRevision]);
 
   return (
-    <div className="setup-content" data-layout="content">
+    <div
+      className={`setup-content${model.names.length ? "" : " is-empty"}`}
+      data-layout="content"
+    >
       <h2 className="panel-title">{t("setupTitle")}</h2>
       <p className="panel-description">{t("setupDescription")}</p>
       <form
