@@ -7,7 +7,7 @@
 Bring your favorite people together, add their names, and pass one phone around.<br>
 Everyone privately discovers who they’re buying a gift for—with a little confetti along the way.
 
-**2–50 people** &nbsp; · &nbsp; **English & Polish** &nbsp; · &nbsp; **No accounts** &nbsp; · &nbsp; **Made for mobile**
+**2–50 people** &nbsp; · &nbsp; **English & Polish** &nbsp; · &nbsp; **No accounts**
 
 [How it works](#how-it-works) · [Run locally](#run-locally) · [Build & deploy](#build--deploy) · [Translations](#translations)
 
@@ -24,7 +24,7 @@ person. Once a reveal is dismissed, the next person can’t browse back to it.
 
 ![Merry Little Draw desktop preview: a cream and forest-green page with gift illustrations, an English/Polish switcher, and a participant list.](docs/images/site-preview.jpg)
 
-<p align="center"><sub>Desktop preview · Polish interface. Designed for passing a phone around, with room to shine on a bigger screen.</sub></p>
+<p align="center"><sub>Desktop preview · English interface. Designed for passing a phone around, with room to shine on a bigger screen.</sub></p>
 
 ## How it works
 
