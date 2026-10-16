@@ -7,9 +7,9 @@
 Bring your favorite people together, add their names, and pass one phone around.<br>
 Everyone privately discovers who they’re buying a gift for—with a little confetti along the way.
 
-**2–50 people** &nbsp; · &nbsp; **English & Polish** &nbsp; · &nbsp; **No accounts** &nbsp; · &nbsp; **Made for mobile**
+**2–50 people** &nbsp; · &nbsp; **English & Polish** &nbsp; · &nbsp; **No accounts**
 
-[How it works](#how-it-works) · [Run locally](#run-locally) · [Build & deploy](#build--deploy) · [Translations](#translations)
+[How it works](#how-it-works) · [Run locally](#run-locally) · [Build & deploy](#build--deploy)
 
 </div>
 
@@ -24,7 +24,7 @@ person. Once a reveal is dismissed, the next person can’t browse back to it.
 
 ![Merry Little Draw desktop preview: a cream and forest-green page with gift illustrations, an English/Polish switcher, and a participant list.](docs/images/site-preview.jpg)
 
-<p align="center"><sub>Desktop preview · Polish interface. Designed for passing a phone around, with room to shine on a bigger screen.</sub></p>
+<p align="center"><sub>Desktop preview · English interface. Designed for passing a phone around, with room to shine on a bigger screen.</sub></p>
 
 ## How it works
 
@@ -114,39 +114,6 @@ The card and primary action keep the same dimensions throughout the draw.
 The participant list scrolls in its reserved area, and validation messages have
 their own space. Motion animates the current layout without retaining an outgoing
 copy of a private reveal.
-
-## Translations
-
-Localization uses [i18next](https://www.i18next.com/) and
-[react-i18next](https://react.i18next.com/). Translation strings live in
-`src/locales/en/translation.json` and `src/locales/pl/translation.json`.
-Language state belongs to i18next, independently of the draw session.
-
-Use the standard hook in any component under `App`:
-
-```jsx
-const { t } = useTranslation();
-
-t("setupTitle");
-t("remove", { name });
-t("people", { count });
-```
-
-i18next handles interpolation and the language’s standard plural forms.
-Keep participant names in React text or attribute expressions. Use
-`<Trans i18nKey="headline" />` for translations containing `<br/>` or `<em>`
-elements, without parsing HTML yourself.
-
-The browser detector checks the saved `merry-language` preference first, then
-browser languages, with English as the fallback. Region codes such as `pl-PL`
-resolve to the base language. Both dictionaries ship with the app, so switching
-needs no network request. Page title, HTML language, and accessibility labels
-follow the selected language.
-
-**Adding a language:** create its JSON dictionary, register it in `resources` in
-`src/i18n.js`, and include its plural forms. The supported language list and
-switcher derive from that registry. Run `npm test` to check message coverage,
-interpolation parity, detection, fallback, and preference persistence.
 
 ---
 
