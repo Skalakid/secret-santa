@@ -25,3 +25,11 @@ From this folder, run:
 
 Then open http://localhost:5173 in a browser. No install or build step is needed.
 Google Fonts enhance the typography; system fonts are used if unavailable.
+
+## Layout and motion
+
+The card and primary action keep the same dimensions throughout the draw.
+The participant list scrolls inside its reserved area, and validation messages
+have their own space. Changes use short ease-out transitions; reduced-motion
+preferences disable them. Moving on removes the previous reveal immediately,
+without keeping an outgoing copy for animation.
